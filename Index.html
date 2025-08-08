@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>لعبة الكسور</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      background-color: #f0f8ff;
+      direction: rtl;
+    }
+    .fraction-box {
+      width: 200px;
+      height: 200px;
+      margin: 20px auto;
+      border: 2px solid #333;
+      position: relative;
+    }
+    .part {
+      position: absolute;
+      background-color: #ffcccb;
+      border: 1px solid #000;
+    }
+    .message {
+      font-size: 20px;
+      margin-top: 20px;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎉 لعبة الكسور التفاعلية</h1>
+  <p>اختر الجزء الصحيح الذي يمثل <strong>ثلاثة أرباع</strong></p>
+  <div class="fraction-box" id="box"></div>
+  <button onclick="checkAnswer()">تحقق</button>
+  <div class="message" id="message"></div>
+
+  <script>
+    const box = document.getElementById('box');
+    const totalParts = 4;
+    const correctParts = 3;
+
+    for (let i = 0; i < totalParts; i++) {
+      const part = document.createElement('div');
+      part.classList.add('part');
+      part.style.width = '100%';
+      part.style.height = (100 / totalParts) + '%';
+      part.style.top = (i * 100 / totalParts) + '%';
+      part.dataset.index = i;
+      part.onclick = () => {
+        part.classList.toggle('selected');
+        part.style.backgroundColor = part.classList.contains('selected') ? '#90ee90' : '#ffcccb';
+      };
+      box.appendChild(part);
+    }
+
+    function checkAnswer() {
+      const selected = document.querySelectorAll('.selected').length;
+      const msg = document.getElementById('message');
+      if (selected === correctParts) {
+        msg.textContent = '✔️ أحسنت! هذا هو ثلاثة أرباع.';
+      } else {
+        msg.textContent = '❌ حاول مرة أخرى.';
+        msg.style.color = 'red';
+      }
+    }
+  </script>
+</body>
+</html>
